@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ad.title}}
+{% endblock %}
+
+{% block body %}
+
+<div class="new-title" style="background-image: url({{ad.coverImage}});">
+    <div class="container">
+        <h1>{{ad.title}}</h1>
+        <p>{{ad.introduction}}</p>
+        <p class="h2">
+            <strong>{{ad.rooms}} chambres</strong> pour <strong>{{ad.price}} &euro; par nuit</strong>
+        </p>
+        <a href="#" class="btn btn-primary">Réserver !</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 mb-3">
+            {{ ad.content| raw }}
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                   {% for image in ad.images %}
+                        <li data-target="#carouselExampleIndicators" 
+                        data-slide-to="{{ loop.index0 }}" 
+                        {% if loop.first %}class="active"{% endif %}>
+                        </li>
+                   {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for image in ad.images %}
+                        <div class="carousel-item active">
+                            <img src="{{ image.url}}" class="d-block w-100" alt="...">
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col-sm-4">
+                    <img src="http://placehold.it/64x64" alt="Avatar de Cavani">
+                </div>
+                <div class="col">
+                    <h3>Edison Cavani</h3>
+                    <div class="badge badge-primary">3 annonces</div>
+                </div>
+            </div>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias soluta possimus molestiae a recusandae sed ullam. Inventore consectetur dignissimos veritatis necessitatibus laboriosam vero perspiciatis, accusantium molestiae, quia impedit ea facilis.</p>
+            <p>Quaerat ut soluta placeat reprehenderit excepturi sequi sint voluptatum possimus illo? Quod repudiandae, quas corporis iure neque fugit voluptatem dignissimos eius pariatur laborum ducimus necessitatibus a natus vitae odio ullam?</p>
+            <p>Totam error voluptates molestias obcaecati nemo quae. Dolorem dolor magnam ipsum rerum voluptas quod dolorum vel nihil a illo, natus veritatis repudiandae nobis fugiat quasi consectetur architecto sunt beatae qui.</p>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}
