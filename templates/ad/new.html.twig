@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+    {% block title %}
+            <h1>Création d'une Nouvelle Page</h1>
+    {% endblock %}
+
+    {% block body %}
+        <div class="container">
+            <h1>Bonjour</h1>
+            {{ form_start(form) }}
+
+                {{ form_widget(form) }}
+
+                <button type="submit" class="btn btn-primary">Crée une annonce</button>
+                
+            {{ form_end(form) }}
+        </div>
+{% endblock %}
+
