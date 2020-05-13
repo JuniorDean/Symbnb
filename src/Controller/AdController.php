@@ -47,16 +47,18 @@ class AdController extends AbstractController
 
         $form->handleRequest($request);
 
-        dump($ad);
-
         if($form->isSubmitted() && $form->isValid()){
+            foreach($ad->getImages() as $image){
+                $image->setAd($ad);
+                $manager->persist($image);
+            }
 
             $manager->persist($ad);
             $manager->flush();
 
             $this->addFlash(
                 'success',
-                "L'annonce<strong>YO</strong> a bien été enregistrer"
+                "L'annonce<strong>{$ad->getTitle()}</strong> a bien été enregistrer"
             );
 
             return $this->redirectToRoute('ads_show',[
@@ -69,6 +71,47 @@ class AdController extends AbstractController
         ]);
    
     }
+
+    /**
+     * Permet d'afficher le formulaire d'édition
+     *  
+     * @Route("/ads/{slug}/edit", name="ads_edit")
+     * 
+     * @return Response
+     * 
+     */
+
+     public function edit(Ad $ad, Request $request, EntityManagerInterface $manager){
+
+        $form = $this->createForm(AdType::class, $ad);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            foreach($ad->getImages() as $image){
+                $image->setAd($ad);
+                $manager->persist($image);
+            }
+
+            $manager->persist($ad);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Les modifications de l'annonce<strong>{$ad->getTitle()}</strong> ont bien bien été enregistrer"
+            );
+
+            return $this->redirectToRoute('ads_show',[
+                'slug' => $ad->getSlug()
+            ]);
+        }
+        
+        return $this->render("ad/edit.html.twig",[
+            'form' => $form->createView(),
+             'ad' => $ad
+        ]);
+     }
+
 
     /**
      * Permet d'afficher une seule annonce 

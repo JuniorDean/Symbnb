@@ -20,16 +20,17 @@ class AdType extends AbstractType
     * Cette fonction permet de ne pas se répétez    
     * @param string $label
     * @param string placeholder
-    * return array
+    * @param array $options
+    * return array 
     */
 
-    private function getConfiguration($label, $placeholder){
-        return [
+    private function getConfiguration($label, $placeholder, $options = []){
+        return array_merge([
             'label' => $label,
             'attr' => [
                 'placeholder' => $placeholder
             ]    
-        ];
+        ], $options);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -41,7 +42,9 @@ class AdType extends AbstractType
             )
             ->add('slug',TextType::class,
              $this->getConfiguration("Adresse web",
-             "Tapez l'adresse web(automatique)")
+             "Tapez l'adresse web(automatique)", [
+                 'required' => false
+             ])
             )
             ->add('cover_image', UrlType::class,
              $this->getConfiguration("URL de l'image",

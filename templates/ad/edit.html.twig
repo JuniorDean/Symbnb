@@ -1,22 +1,22 @@
-{% extends "base.html.twig" %}
-    {% block title %}
-            <h1>Création d'une Nouvelle Page</h1>
-    {% endblock %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition d'une annonce {% endblock %}
 
     {% form_theme form _self %}
 
-    {% block body %}
+{% block body %}
 
-        <div class="container">
-            <h1>Bonjour</h1>
+    <div class="container">
+        <h1>Modifier l'annonce : {{ad.title}}</h1>
             {{ form_start(form) }}
 
-                {{ form_widget(form) }}
+            {{ form_widget(form) }}
 
-                <button type="submit" class="btn btn-primary">Crée une annonce</button>
-                
-            {{ form_end(form) }}
-        </div>
+            <button type="submit" class="btn btn-primary">Enregistrer l'annonce</button>
+            
+        {{ form_end(form) }}
+    </div>
+
 {% endblock %}
 
 
@@ -93,4 +93,3 @@
     </script>
 
 {% endblock %}
-

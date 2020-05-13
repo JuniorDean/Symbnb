@@ -6,10 +6,17 @@ use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks£
+ * @uniqueEntity(
+ * fields={"title"},
+ * message="Une autre annonce possède déjà ce titre, merci de le modifier"
+ * )
+ * 
  */
 
  
@@ -24,6 +31,9 @@ class Ad
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=10, max=255, 
+     * minMessage="Le titre doit faire plus de 10 caractères !", 
+     * maxMessage="Le titre ne doit pas faire plus de 255")
      */
     private $title;
 
@@ -34,16 +44,23 @@ class Ad
 
     /**
      * @ORM\Column(type="float")
+     * 
      */
     private $price;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=10, max=255, 
+     * minMessage="Le titre doit faire plus de 10 caractères !", 
+     * maxMessage="Le titre ne doit pas faire plus de 255")
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=10, max=255, 
+     * minMessage="Le titre doit faire plus de 10 caractères !", 
+     * maxMessage="Le titre ne doit pas faire plus de 255")
      */
     private $content;
 
@@ -72,6 +89,7 @@ class Ad
      * 
      * @ORM\PrePersist
      * @ORM\PreUpdate
+     *
      * 
      * @return void
      */
