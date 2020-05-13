@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ad;
+use App\Entity\Image;
 use App\Form\AdType;
 use App\Repository\AdRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,6 +53,15 @@ class AdController extends AbstractController
 
             $manager->persist($ad);
             $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "L'annonce<strong>YO</strong> a bien été enregistrer"
+            );
+
+            return $this->redirectToRoute('ads_show',[
+                'slug' => $ad->getSlug()
+            ]);
         }
     
         return $this->render('ad/new.html.twig',[

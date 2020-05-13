@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Ad;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -34,13 +35,42 @@ class AdType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title',TextType::class, $this->getConfiguration("Titre","Tapez un super titre"))
-            ->add('slug',TextType::class, $this->getConfiguration("Adresse web","Tapez l'adresse web(automatique)"))
-            ->add('cover_image', UrlType::class, $this->getConfiguration("URL de l'image","Donnez l'adresse d'une image qui donne vraiment envie "))
-            ->add('introduction', TextType::class, $this->getConfiguration("Introduction","Donnez une descrption globale de l'annonce"))
-            ->add('content', TextareaType::class, $this->getConfiguration("Description détaillé","Tapez une description qui donne envie"))
-            ->add('price', MoneyType::class, $this->getConfiguration("Prix par nuit", "Indiqué le prix que vous souhaitez")) 
-            ->add('rooms', IntegerType::class, $this->getConfiguration("Nombre de chambre", "Le nombre de chambre disponible"))
+            ->add('title',
+            TextType::class,
+             $this->getConfiguration("Titre","Tapez un super titre")
+            )
+            ->add('slug',TextType::class,
+             $this->getConfiguration("Adresse web",
+             "Tapez l'adresse web(automatique)")
+            )
+            ->add('cover_image', UrlType::class,
+             $this->getConfiguration("URL de l'image",
+             "Donnez l'adresse d'une image qui donne vraiment envie ")
+            )
+            ->add('introduction', TextType::class,
+             $this->getConfiguration("Introduction",
+             "Donnez une descrption globale de l'annonce")
+            )
+            ->add('content', TextareaType::class,
+            $this->getConfiguration("Description détaillé",
+            "Tapez une description qui donne envie")
+            )
+            ->add('price', MoneyType::class,
+             $this->getConfiguration("Prix par nuit",
+             "Indiqué le prix que vous souhaitez")
+            ) 
+            ->add('rooms', IntegerType::class,
+             $this->getConfiguration("Nombre de chambre",
+              "Le nombre de chambre disponible")
+            )
+            ->add(
+                'images', 
+                CollectionType::class,
+            [
+                'entry_type' => ImageType::class,
+                'allow_add' => true
+            
+            ])
         ;
     }
 
